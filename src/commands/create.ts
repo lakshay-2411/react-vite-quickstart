@@ -1,4 +1,4 @@
-import inquirer from 'inquirer';
+import { input, confirm } from '@inquirer/prompts';
 import chalk from 'chalk';
 import ora from 'ora';
 import { execSync } from 'child_process';
@@ -36,12 +36,13 @@ export async function createProject(projectName?: string, options: ProjectOption
 }
 
 async function getProjectConfig(projectName?: string, options: ProjectOptions = {}): Promise<ProjectConfig> {
-  const questions = [];
+  let name = projectName;
+  let includeTailwind = options.tailwind ?? false;
+  let useTypeScript = options.typescript ?? false;
 
-  if (!projectName) {
-    questions.push({
-      type: 'input',
-      name: 'name',
+  // Ask for project name if not provided and not using --yes
+  if (!name && !options.yes) {
+    name = await input({
       message: 'Project name:',
       validate: (input: string) => {
         if (!input.trim()) {
@@ -57,33 +58,26 @@ async function getProjectConfig(projectName?: string, options: ProjectOptions = 
     });
   }
 
+  // Ask for Tailwind CSS if not specified and not using --yes
   if (options.tailwind === undefined && !options.yes) {
-    questions.push({
-      type: 'confirm',
-      name: 'includeTailwind',
+    includeTailwind = await confirm({
       message: 'Add Tailwind CSS?',
       default: false
     });
   }
 
+  // Ask for TypeScript if not specified and not using --yes
   if (options.typescript === undefined && !options.yes) {
-    questions.push({
-      type: 'confirm',
-      name: 'useTypeScript',
+    useTypeScript = await confirm({
       message: 'Use TypeScript?',
       default: false
     });
   }
 
-  let answers: any = {};
-  if (questions.length > 0 && !options.yes) {
-    answers = await inquirer.prompt(questions);
-  }
-
   return {
-    name: projectName || answers.name,
-    includeTailwind: options.tailwind ?? answers.includeTailwind ?? false,
-    useTypeScript: options.typescript ?? answers.useTypeScript ?? false
+    name: name || 'my-react-app',
+    includeTailwind,
+    useTypeScript
   };
 }
 
