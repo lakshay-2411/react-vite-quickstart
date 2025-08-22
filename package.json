@@ -1,0 +1,55 @@
+{
+  "name": "react-vite-quickstart",
+  "version": "1.0.0",
+  "description": "A CLI tool to quickly scaffold React + Vite projects with optional Tailwind CSS and TypeScript",
+  "main": "dist/index.js",
+  "bin": {
+    "react-vite-quickstart": "dist/index.js",
+    "rvq": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "test": "echo \"No tests yet\" && exit 0",
+    "prepublishOnly": "npm run build",
+    "clean": "rm -rf dist",
+    "link": "npm link",
+    "unlink": "npm unlink react-vite-quickstart"
+  },
+  "keywords": [
+    "react",
+    "vite",
+    "cli",
+    "scaffold",
+    "quickstart",
+    "tailwindcss",
+    "typescript"
+  ],
+  "author": "Lakshay",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/inquirer": "^9.0.7",
+    "@types/node": "^20.11.17",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "commander": "^12.0.0",
+    "fs-extra": "^11.2.0",
+    "inquirer": "^9.2.15",
+    "chalk": "^4.1.2",
+    "ora": "^5.4.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/react-vite-quickstart.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/react-vite-quickstart/issues"
+  },
+  "homepage": "https://github.com/yourusername/react-vite-quickstart#readme"
+}
