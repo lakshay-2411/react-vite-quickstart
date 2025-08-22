@@ -46,10 +46,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/react-vite-quickstart.git"
+    "url": "https://github.com/lakshay-2411/react-vite-quickstart.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/react-vite-quickstart/issues"
+    "url": "https://github.com/lakshay-2411/react-vite-quickstart/issues"
   },
-  "homepage": "https://github.com/yourusername/react-vite-quickstart#readme"
+  "homepage": "https://github.com/lakshay-2411/react-vite-quickstart#readme"
 }

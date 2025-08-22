@@ -9,15 +9,12 @@ import { getReactAppTemplate, getIndexCssTemplate, getViteConfigTemplate, getApp
 export async function setupProject(config: ProjectConfig): Promise<void> {
   const projectPath = path.resolve(process.cwd(), config.name);
   
-  // Install dependencies
   await installDependencies(projectPath);
   
-  // Add Tailwind CSS if requested
   if (config.includeTailwind) {
     await setupTailwind(projectPath);
   }
   
-  // Clean up and customize boilerplate
   await customizeProject(projectPath, config);
 }
 
@@ -40,18 +37,15 @@ async function setupTailwind(projectPath: string): Promise<void> {
   const spinner = ora('Setting up Tailwind CSS...').start();
   
   try {
-    // Install Tailwind CSS v4.1
     execSync('npm install tailwindcss @tailwindcss/vite', { 
       stdio: 'pipe',
       cwd: projectPath 
     });
     
-    // Update vite.config.js
     const viteConfigPath = path.join(projectPath, 'vite.config.js');
     const viteConfigContent = getViteConfigTemplate(true);
     await fs.writeFile(viteConfigPath, viteConfigContent);
     
-    // Update index.css
     const indexCssPath = path.join(projectPath, 'src', 'index.css');
     const indexCssContent = getIndexCssTemplate(true);
     await fs.writeFile(indexCssPath, indexCssContent);
@@ -67,36 +61,49 @@ async function customizeProject(projectPath: string, config: ProjectConfig): Pro
   const spinner = ora('Customizing project...').start();
   
   try {
-    // Create components directory
     const componentsDir = path.join(projectPath, 'src', 'components');
     await fs.ensureDir(componentsDir);
     
-    // Replace App.jsx/tsx with clean template
     const appExtension = config.useTypeScript ? 'tsx' : 'jsx';
     const appPath = path.join(projectPath, 'src', `App.${appExtension}`);
     const appContent = getReactAppTemplate(config.includeTailwind, config.useTypeScript);
     await fs.writeFile(appPath, appContent);
     
-    // Create/update App.css
-    const appCssPath = path.join(projectPath, 'src', 'App.css');
-    const appCssContent = getAppCssTemplate();
-    await fs.writeFile(appCssPath, appCssContent);
+    if (!config.includeTailwind) {
+      const appCssPath = path.join(projectPath, 'src', 'App.css');
+      const appCssContent = getAppCssTemplate();
+      await fs.writeFile(appCssPath, appCssContent);
+    }
     
-    // Update index.css
     const indexCssPath = path.join(projectPath, 'src', 'index.css');
     const indexCssContent = getIndexCssTemplate(config.includeTailwind);
     await fs.writeFile(indexCssPath, indexCssContent);
     
-    // Update vite.config.js/ts
     const viteConfigExtension = config.useTypeScript ? 'ts' : 'js';
     const viteConfigPath = path.join(projectPath, `vite.config.${viteConfigExtension}`);
     const viteConfigContent = getViteConfigTemplate(config.includeTailwind, config.useTypeScript);
     await fs.writeFile(viteConfigPath, viteConfigContent);
     
-    // Remove default assets that we don't need
+    const wrongViteConfigExtension = config.useTypeScript ? 'js' : 'ts';
+    const wrongViteConfigPath = path.join(projectPath, `vite.config.${wrongViteConfigExtension}`);
+    if (await fs.pathExists(wrongViteConfigPath)) {
+      await fs.remove(wrongViteConfigPath);
+    }
+    
+    const publicPath = path.join(projectPath, 'public');
+    if (await fs.pathExists(publicPath)) {
+      await fs.remove(publicPath);
+    }
+    
+    if (config.includeTailwind) {
+      const appCssPath = path.join(projectPath, 'src', 'App.css');
+      if (await fs.pathExists(appCssPath)) {
+        await fs.remove(appCssPath);
+      }
+    }
+    
     const assetsToRemove = [
-      path.join(projectPath, 'src', 'assets', 'react.svg'),
-      path.join(projectPath, 'public', 'vite.svg')
+      path.join(projectPath, 'src', 'assets', 'react.svg')
     ];
     
     for (const assetPath of assetsToRemove) {
@@ -105,7 +112,6 @@ async function customizeProject(projectPath: string, config: ProjectConfig): Pro
       }
     }
     
-    // Update README.md
     await updateReadme(projectPath, config);
     
     spinner.succeed('Project customized');

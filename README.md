@@ -14,7 +14,6 @@ A powerful CLI tool to quickly scaffold React + Vite projects with optional Tail
 ## Quick Start
 
 ```bash
-# Using npx (recommended)
 npx react-vite-quickstart
 
 # Or install globally
@@ -70,7 +69,7 @@ my-awesome-app/
 ├── public/
 ├── package.json        # With all dependencies
 ├── vite.config.js      # Configured for React (+ Tailwind if selected)
-└── README.md           # Project-specific documentation
+└── README.md           
 ```
 
 ## Tailwind CSS Integration
@@ -82,7 +81,7 @@ When you choose to include Tailwind CSS, the tool automatically:
 3. Updates `index.css` with Tailwind imports
 4. Provides a styled example component
 
-This uses **Tailwind CSS v4.1** which requires no `tailwind.config.js` file!
+This uses **Tailwind CSS v4.1**
 
 ## Example Output
 
@@ -151,7 +150,7 @@ To work on this project locally:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/react-vite-quickstart.git
+   git clone https://github.com/lakshay-2411/react-vite-quickstart.git
    cd react-vite-quickstart
    ```
 
@@ -178,7 +177,6 @@ To work on this project locally:
 
 5. **Development mode**
    ```bash
-   # Watch for changes and rebuild automatically
    npm run dev
    ```
 

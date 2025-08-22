@@ -1,8 +1,6 @@
 export function getReactAppTemplate(includeTailwind: boolean, useTypeScript: boolean = false): string {
   if (includeTailwind) {
-    return `import './App.css'
-
-function App() {
+    return `function App() {
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
       <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden">

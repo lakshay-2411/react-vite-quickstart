@@ -12,25 +12,19 @@ export async function createProject(projectName?: string, options: ProjectOption
   let config: ProjectConfig;
 
   try {
-    // Get project configuration
     config = await getProjectConfig(projectName, options);
     
-    // Validate project name
     validateProjectName(config.name);
 
-    // Check if directory already exists
     const projectPath = path.resolve(process.cwd(), config.name);
     if (await fs.pathExists(projectPath)) {
       throw new Error(`Directory "${config.name}" already exists!`);
     }
 
-    // Create Vite project
     await createViteProject(config);
 
-    // Setup project files
     await setupProject(config);
 
-    // Success message
     console.log(chalk.green('\n✅ Project created successfully!\n'));
     console.log(chalk.cyan('Next steps:'));
     console.log(chalk.white(`  cd ${config.name}`));
@@ -44,7 +38,6 @@ export async function createProject(projectName?: string, options: ProjectOption
 async function getProjectConfig(projectName?: string, options: ProjectOptions = {}): Promise<ProjectConfig> {
   const questions = [];
 
-  // Ask for project name if not provided
   if (!projectName) {
     questions.push({
       type: 'input',
@@ -64,7 +57,6 @@ async function getProjectConfig(projectName?: string, options: ProjectOptions = 
     });
   }
 
-  // Ask for Tailwind CSS if not specified
   if (options.tailwind === undefined && !options.yes) {
     questions.push({
       type: 'confirm',
@@ -74,7 +66,6 @@ async function getProjectConfig(projectName?: string, options: ProjectOptions = 
     });
   }
 
-  // Ask for TypeScript if not specified
   if (options.typescript === undefined && !options.yes) {
     questions.push({
       type: 'confirm',
@@ -100,10 +91,8 @@ async function createViteProject(config: ProjectConfig): Promise<void> {
   const spinner = ora('Creating Vite project...').start();
   
   try {
-    // Choose template based on TypeScript preference
     const template = config.useTypeScript ? 'react-ts' : 'react';
     
-    // Create Vite project using npm create vite
     const command = `npm create vite@latest ${config.name} -- --template ${template}`;
     execSync(command, { 
       stdio: 'pipe',
