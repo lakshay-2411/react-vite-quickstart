@@ -1,24 +1,37 @@
 # React Vite Quickstart CLI
 
-A powerful CLI tool to quickly scaffold React + Vite projects with optional Tailwind CSS integration. Eliminates the repetitive manual setup process and gets you coding faster.
+[![npm version](https://badge.fury.io/js/react-vite-quickstart.svg)](https://badge.fury.io/js/react-vite-quickstart)
+[![npm downloads](https://img.shields.io/npm/dm/react-vite-quickstart.svg)](https://www.npmjs.com/package/react-vite-quickstart)
+[![license](https://img.shields.io/npm/l/react-vite-quickstart.svg)](https://github.com/lakshay-2411/react-vite-quickstart/blob/master/LICENSE)
 
-## Features
+A powerful CLI tool to quickly scaffold React + Vite projects with optional Tailwind CSS and TypeScript support. Eliminates the repetitive manual setup process and gets you coding faster.
+
+## ✨ Features
 
 - 🚀 **Single Command Setup** - Create a complete React + Vite project instantly
 - 🎨 **Optional Tailwind CSS** - Choose to include Tailwind CSS v4.1 with zero configuration
+- 📝 **TypeScript Support** - Optional TypeScript templates with proper type annotations
 - 🧹 **Clean Boilerplate** - No unnecessary example code, just a clean starting point
 - 📦 **Auto Dependencies** - Automatically installs all required packages
 - ⚡ **Ready to Run** - Generated project works immediately with `npm run dev`
 - 🔧 **Cross Platform** - Works on Windows, macOS, and Linux
 
-## Quick Start
+## 🚀 Installation & Quick Start
 
+### Using npx (Recommended)
 ```bash
 npx react-vite-quickstart
+```
 
-# Or install globally
+### Global Installation
+```bash
 npm install -g react-vite-quickstart
 react-vite-quickstart
+```
+
+### One-liner project creation
+```bash
+npx react-vite-quickstart my-awesome-app --typescript --tailwind
 ```
 
 ## Usage
@@ -180,9 +193,30 @@ To work on this project locally:
    npm run dev
    ```
 
-## Support
+## 📦 NPM Package
 
-If you find this tool helpful, please give it a ⭐ on GitHub!
+This package is available on npm: [react-vite-quickstart](https://www.npmjs.com/package/react-vite-quickstart)
+
+```bash
+# View package info
+npm info react-vite-quickstart
+
+# View all versions
+npm view react-vite-quickstart versions --json
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+MIT © [Lakshay](https://github.com/lakshay-2411)
+
+## ⭐ Support
+
+If you find this tool helpful, please give it a ⭐ on [GitHub](https://github.com/lakshay-2411/react-vite-quickstart)!
 
 ---
+
 
